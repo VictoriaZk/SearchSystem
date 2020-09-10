@@ -9,4 +9,12 @@ import java.util.List;
 public interface DocumentRepository extends JpaRepository<Document, Long> {
     @Query("SELECT d FROM Document d WHERE d.text in ?1")
     List<Document> findAllByTextContains(String text);
+
+    Document save(Document document);
+
+    @Query("SELECT COUNT (d) FROM Document d")
+    Long countAll();
+
+
+
 }
