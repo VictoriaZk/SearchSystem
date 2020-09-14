@@ -13,7 +13,10 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
     Document save(Document document);
 
     @Query("SELECT COUNT (d) FROM Document d")
-    Long countAll();
+    Integer countAll();
+
+    @Query("SELECT d FROM Document d")
+    List<Document> findAll();
 
 
 

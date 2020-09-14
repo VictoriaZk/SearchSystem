@@ -1,10 +1,8 @@
 package com.example.lab1.utils;
 
-import org.springframework.context.annotation.Configuration;
 import ru.textanalysis.tawt.jmorfsdk.JMorfSdk;
 import ru.textanalysis.tawt.jmorfsdk.loader.JMorfSdkFactory;
 
-@Configuration(value = "getInstance")
 public class MorphAnalyzer {
     private static JMorfSdk instance;
 

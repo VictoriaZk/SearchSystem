@@ -1,18 +1,29 @@
 package com.example.lab1.controller;
 
+import com.example.lab1.service.DocumentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequiredArgsConstructor
 @RequestMapping(value = "/search")
 public class SearchController {
+    private final DocumentService documentService;
+
     @GetMapping("/main")
     public String getStartPage(Model model) {
+        return "start";
+    }
+
+    @PostMapping("/main")
+    public String searchDocument(@RequestParam(value = "searchText") String searchText, Model model){
+        model.addAttribute("output", documentService.getSearchDocument(searchText));
         return "start";
     }
 }

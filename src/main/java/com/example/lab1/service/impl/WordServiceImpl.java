@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,4 +26,23 @@ public class WordServiceImpl implements WordService {
         return wordRepository.save(word);
     }
 
+    @Transactional
+    @Override
+    public void saveWordDocumentCount(Long docId, Long wordId, Integer count){
+        wordRepository.saveWordDocumentCount(docId, wordId, count);
+    }
+
+    @Override
+    public Integer getWordCountInDocument(Long documentId, Long word_id){
+        return wordRepository.getWordCountInDocument(documentId, word_id).orElse(0);
+    }
+
+    @Override
+    public Integer getCountDocumentsWithWord(Long wordId){
+        return wordRepository.findCountDocumentsWithWord(wordId);
+    }
+
+    public List<Word> findAll(){
+        return wordRepository.findAll();
+    }
 }

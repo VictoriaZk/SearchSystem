@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
-@RequiredArgsConstructor(onConstructor_ = {@Autowired})
+@RequiredArgsConstructor
 @RequestMapping(value = "/document")
 public class DocumentController {
     private final DocumentService documentService;
@@ -18,7 +18,7 @@ public class DocumentController {
     @PostMapping("/upload")
     public String upload(@RequestParam(value = "fileToUpload") MultipartFile file) {
         documentService.upload(file);
-        return "redirect:/";
+        return "upload";
     }
 
     @GetMapping("/upload")
