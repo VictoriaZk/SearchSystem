@@ -23,7 +23,7 @@ public class SearchController {
 
     @PostMapping("/main")
     public String searchDocument(@RequestParam(value = "searchText") String searchText, Model model){
-        model.addAttribute("output", documentService.getSearchDocument(searchText));
+        model.addAttribute("searchResults", documentService.getSearchDocuments(searchText));
         return "start";
     }
 }

@@ -4,9 +4,9 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-<div class="container">
+<div class="container" style="margin-left: 200px">
     <br/>
-    <div class="row justify-content-center">
+    <div class="row justify-content-left">
         <div class="col-12 col-md-10 col-lg-8">
             <form class="card card-sm" action="/search/main" method="post">
                 <div class="card-body row no-gutters align-items-center">
@@ -28,9 +28,13 @@
         <!--end of col-->
     </div>
 
-    <div class="container" xmlns:th="http://www.w3.org/1999/xhtml">
-        <div class="d-flex flex-column flex-md-row align-items-center p-3 mb-3 bg-white  shadow-sm border-top border-bottom border-left border-right row">
-            <div th:text="${output}"></div>
+    <div class="container" xmlns:th="http://www.w3.org/1999/xhtml" th:each="searchResult : ${searchResults}">
+        <div class="flex-row flex-md-row align-items-left p-3 mb-3 bg-white  shadow-sm border-top border-bottom border-left border-right row">
+            <a class="col" th:href="@{/document/{id}(id=${searchResult.document.id})}" th:text="${searchResult.document.title}" ></a>
+            <div class="w-100"></div>
+            <div class="col" th:text="${searchResult.document.text}"></div>
+            <div class="w-100"></div>
+            <div class="col" th:text="${searchResult.rank}"></div>
         </div>
     </div>
 </div>

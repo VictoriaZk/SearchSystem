@@ -1,13 +1,14 @@
 package com.example.lab1.utils.impl;
 
 import com.example.lab1.utils.DocumentUtils;
+import com.example.lab1.utils.MorphAnalyzer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.textanalysis.tawt.jmorfsdk.JMorfSdk;
 import ru.textanalysis.tawt.ms.storage.OmoFormList;
-import sun.nio.cs.ext.MacThai;
 
-import java.util.Arrays;
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

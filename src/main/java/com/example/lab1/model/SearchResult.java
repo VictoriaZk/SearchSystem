@@ -1,16 +1,17 @@
 package com.example.lab1.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchResponse {
-    private LocalDate localDate;
+public class SearchResult {
     private Document document;
-    private double rank;
+    private Double rank;
 }

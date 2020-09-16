@@ -1,6 +1,7 @@
 package com.example.lab1.service.impl;
 
 import com.example.lab1.model.Document;
+import com.example.lab1.model.SearchResult;
 import com.example.lab1.model.Word;
 import com.example.lab1.repository.DocumentRepository;
 import com.example.lab1.service.DocumentService;
@@ -13,8 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,7 +74,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public String getSearchDocument(String text) {
+    public List<SearchResult> getSearchDocuments(String text) {
         Map<Word, Double> dictionary = getDictionary();
         List<Double> vectorRequest = getVectorRequest(documentUtils.getTermOccurrences(text), dictionary);
 
@@ -80,13 +82,15 @@ public class DocumentServiceImpl implements DocumentService {
                 findAll().stream().collect(Collectors.toMap(document -> document,
                 document -> getVectorDocument(document, dictionary)));
 
-        Document searchResult = informationFlow
+        return informationFlow
                 .entrySet().stream()
-                .max(Comparator.comparing(entry ->
-                        documentUtils.getCoincidenceValue(vectorRequest, entry.getValue())))
-                .get().getKey();
-
-        return searchResult.getText();
+                .map(entry -> SearchResult.builder()
+                        .document(entry.getKey())
+                        .rank(documentUtils.getCoincidenceValue(vectorRequest, entry.getValue()))
+                        .build())
+                .filter(searchResult -> searchResult.getRank() > 0)
+                .sorted(Comparator.comparingDouble(SearchResult::getRank))
+                .collect(Collectors.toList());
     }
 
     private List<Double> getVectorDocument(Document document, Map<Word, Double> dictionary){
