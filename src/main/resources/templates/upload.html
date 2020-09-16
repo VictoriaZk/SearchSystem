@@ -1,5 +1,27 @@
-<form action="/document/upload" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
-</form>
+<html>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <body>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Search</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/document/upload">Upload</a>
+            </li>
+        </ul>
+
+        <div class="modal-content">
+            <form class="form-group" action="/document/upload" method="post" enctype="multipart/form-data"
+                  style="margin-left: 200px; margin-top: 200px; border: black">
+                <label for="fileToUpload">Select File to Upload</label>
+                <input type="file" name="fileToUpload" id="fileToUpload" class="form-control-file">
+                <input type="submit" value="Upload" name="submit" class="btn btn-outline-primary" style="margin-top: 5px">
+            </form>
+        </div>
+
+
+    </body>
+</html>

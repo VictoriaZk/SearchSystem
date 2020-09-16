@@ -14,4 +14,5 @@ import java.time.LocalDate;
 public class SearchResult {
     private Document document;
     private Double rank;
+    private String snippet;
 }

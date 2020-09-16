@@ -20,7 +20,7 @@ public class DocumentUtilsImpl implements DocumentUtils {
 
     @Override
     public Map<String, Integer> getTermOccurrences(String text) {
-        String cleanText = text.replaceAll(",|\\.|;|:|!|\\?", "").replaceAll("  ( )*", " ");
+        String cleanText = text.replaceAll("-|,|\\.|;|:|!|\\?", "").replaceAll("  ( )*", " ");
         String[] words = cleanText.split(" ");
         Map<String, Integer> initialForms = new HashMap<>();
 

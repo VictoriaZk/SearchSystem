@@ -1,14 +1,22 @@
+<html>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<body>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a href="#exampleModal">Upload</a>
+    </li>
+</ul>
+
 <div class="container" style="margin-left: 200px">
     <br/>
     <div class="row justify-content-left">
         <div class="col-12 col-md-10 col-lg-8">
-            <form class="card card-sm" action="/search/main" method="post">
+            <form class="card card-sm" action="/" method="post">
                 <div class="card-body row no-gutters align-items-center">
                     <div class="col-auto">
                         <i class="fas fa-search h4 text-body"></i>
@@ -32,9 +40,34 @@
         <div class="flex-row flex-md-row align-items-left p-3 mb-3 bg-white  shadow-sm border-top border-bottom border-left border-right row">
             <a class="col" th:href="@{/document/{id}(id=${searchResult.document.id})}" th:text="${searchResult.document.title}" ></a>
             <div class="w-100"></div>
-            <div class="col" th:text="${searchResult.document.text}"></div>
+            <div class="col" th:text="${searchResult.snippet}"></div>
             <div class="w-100"></div>
             <div class="col" th:text="${searchResult.rank}"></div>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form class="form-group" action="/document/upload" method="post" enctype="multipart/form-data">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select File to Upload</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="file" name="fileToUpload" id="fileToUpload" class="form-control-file">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" value="Upload" name="submit" class="btn btn-outline-primary" style="margin-top: 5px">
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

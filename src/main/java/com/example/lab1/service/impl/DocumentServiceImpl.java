@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class DocumentServiceImpl implements DocumentService {
+    private static final int maxLengthSnippet = 300;
     private final String PATH = System.getProperty("user.dir") + "/files";
 
     private final DocumentRepository documentRepository;
@@ -87,9 +88,11 @@ public class DocumentServiceImpl implements DocumentService {
                 .map(entry -> SearchResult.builder()
                         .document(entry.getKey())
                         .rank(documentUtils.getCoincidenceValue(vectorRequest, entry.getValue()))
+                        .snippet(entry.getKey().getText().substring(0,
+                                Math.min(maxLengthSnippet, entry.getKey().getText().length())))
                         .build())
                 .filter(searchResult -> searchResult.getRank() > 0)
-                .sorted(Comparator.comparingDouble(SearchResult::getRank))
+                .sorted(Comparator.comparingDouble(SearchResult::getRank).reversed())
                 .collect(Collectors.toList());
     }
 

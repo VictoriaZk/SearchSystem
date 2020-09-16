@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/search")
+@RequestMapping(value = "/")
 public class SearchController {
     private final DocumentService documentService;
 
-    @GetMapping("/main")
+    @GetMapping
     public String getStartPage(Model model) {
         return "start";
     }
 
-    @PostMapping("/main")
+    @PostMapping
     public String searchDocument(@RequestParam(value = "searchText") String searchText, Model model){
         model.addAttribute("searchResults", documentService.getSearchDocuments(searchText));
         return "start";
