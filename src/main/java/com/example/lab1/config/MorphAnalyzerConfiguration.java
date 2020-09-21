@@ -7,8 +7,8 @@ import ru.textanalysis.tawt.jmorfsdk.JMorfSdk;
 
 @Configuration
 public class MorphAnalyzerConfiguration {
-//    @Bean
-//    public JMorfSdk jmorfSdk() {
-//        return MorphAnalyzer.getInstance();
-//    }
+    @Bean
+    public JMorfSdk jmorfSdk() {
+        return MorphAnalyzer.getInstance();
+    }
 }

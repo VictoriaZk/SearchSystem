@@ -16,17 +16,19 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class DocumentUtilsImpl implements DocumentUtils {
-    //private final JMorfSdk jMorfSdk;
+    private final JMorfSdk jMorfSdk;
 
     @Override
     public Map<String, Integer> getTermOccurrences(String text) {
-        String cleanText = text.replaceAll("-|,|\\.|;|:|!|\\?", "").replaceAll("  ( )*", " ");
+        String cleanText = text
+                .replaceAll("[–,.;:!?]", "")
+                .replaceAll("  ( )*", " ").toLowerCase();
         String[] words = cleanText.split(" ");
         Map<String, Integer> initialForms = new HashMap<>();
 
         for (String word : words) {
-            //OmoFormList formList = jMorfSdk.getAllCharacteristicsOfForm(word.toLowerCase());
-            OmoFormList formList = new OmoFormList();
+            OmoFormList formList = jMorfSdk.getAllCharacteristicsOfForm(word.toLowerCase());
+            //OmoFormList formList = new OmoFormList();
             if (!formList.isEmpty()) {
                 word = formList.getFirst().getInitialFormString();
             }
@@ -43,7 +45,7 @@ public class DocumentUtilsImpl implements DocumentUtils {
 
     @Override
     public Double getLengthVector(List<Double> vectorDocument){
-        return Math.sqrt(vectorDocument.stream().mapToDouble(weight -> weight * 2).sum());
+        return Math.sqrt(vectorDocument.stream().mapToDouble(weight -> weight * weight).sum());
     }
 
     @Override

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.bytebuddy.implementation.bind.annotation.Morph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,11 +19,18 @@ public class DocumentController {
     @PostMapping("/upload")
     public String upload(@RequestParam(value = "fileToUpload") MultipartFile file) {
         documentService.upload(file);
-        return "upload";
+        return "redirect:/";
     }
 
     @GetMapping("/upload")
     public String getUploadPage() {
         return "upload";
+    }
+
+    @GetMapping("{id}")
+    public String getDocument(@PathVariable("id") Long DocumentId, Model model){
+        model.addAttribute("document", documentService.findDocument(DocumentId));
+
+        return "document";
     }
 }
